@@ -3,10 +3,13 @@ package interfaces;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 import datos.AlumnoDAO;
 import entidades.Alumno;
+import entidades.Curso;
 
+@Stateless
 public class InterfaceAlumnoImple implements InterfaceAlumno, InterfaceAlumnoRemote {
 
 	/**
@@ -22,7 +25,17 @@ public class InterfaceAlumnoImple implements InterfaceAlumno, InterfaceAlumnoRem
 		// TODO Auto-generated method stub
 		return alumdao.findAll();
 	}
-
+	
+	public List<Alumno> noInscriptos(){
+		return alumdao.noInscriptos();
+	}
+	@Override
+	public List<Alumno> delCurso(Curso cur){
+		System.out.println(cur);
+		System.err.println(cur.getIdCurso());
+		return alumdao.delCurso(cur);
+	}
+	
 	@Override
 	public Alumno buscarPorId(Alumno al) {
 		// TODO Auto-generated method stub

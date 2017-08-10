@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entidades.Alumno;
+import entidades.Curso;
 
 @Stateless	
 public class AlumnoDAOImple implements AlumnoDAO {
@@ -24,8 +25,28 @@ public class AlumnoDAOImple implements AlumnoDAO {
 	public List<Alumno> findAll() {
 		// TODO Auto-generated method stub
 		@SuppressWarnings("unchecked")
-		List<Alumno> resultList = (List<Alumno>) em.createQuery("Alumno.findAll").getResultList();
+		List<Alumno> resultList = (List<Alumno>) em.createNamedQuery("Alumno.findAll").getResultList();
 		return resultList;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Alumno> noInscriptos() {
+		String sq = "Select a from Alumno a where a.idAlumno not in"
+				+ " (select i.id.idAlumno from Inscripcion i)";
+		Query q = em.createQuery(sq);
+		return q.getResultList();
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Alumno> delCurso(Curso cur){
+		System.out.print(cur.getIdCurso());		
+		String sq = "from Alumno a where a.idAlumno in"
+				+ " (select i.id.idAlumno from Inscripcion i where i.id.idCurso = :curid )";
+		Query q = em.createQuery(sq);
+		q.setParameter("curid", cur.getIdCurso());
+		return q.getResultList();
 	}
 
 	@Override
@@ -68,6 +89,8 @@ public class AlumnoDAOImple implements AlumnoDAO {
 	public void insertAlumno(Alumno al) {
 		// TODO Auto-generated method stub
 		em.persist(al);
+		em.flush();
+		em.joinTransaction();
 	}
 
 	@Override

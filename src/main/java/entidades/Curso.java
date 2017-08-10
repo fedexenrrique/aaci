@@ -1,9 +1,15 @@
 package entidades;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 
 /**
@@ -16,14 +22,14 @@ public class Curso implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idCurso;
 
-	private BigDecimal costo;
+	private Double costo;
 
 	private String dias;
 
-	private BigDecimal inscripcion;
+	private Double inscripcion;
 
 	private String nomCurso;
 
@@ -32,7 +38,7 @@ public class Curso implements Serializable {
 	private int profesor;
 
 	//bi-directional many-to-one association to Inscripcion
-	@OneToMany(mappedBy="curso")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="curso")
 	private List<Inscripcion> inscripcions;
 
 	public Curso() {
@@ -46,11 +52,11 @@ public class Curso implements Serializable {
 		this.idCurso = idCurso;
 	}
 
-	public BigDecimal getCosto() {
+	public Double getCosto() {
 		return this.costo;
 	}
 
-	public void setCosto(BigDecimal costo) {
+	public void setCosto(Double costo) {
 		this.costo = costo;
 	}
 
@@ -62,12 +68,12 @@ public class Curso implements Serializable {
 		this.dias = dias;
 	}
 
-	public BigDecimal getInscripcion() {
+	public Double getInscripcion() {
 		return this.inscripcion;
 	}
 
-	public void setInscripcion(BigDecimal inscripcion) {
-		this.inscripcion = inscripcion;
+	public void setInscripcion(Double insc) {
+		this.inscripcion = insc;
 	}
 
 	public String getNomCurso() {
@@ -115,5 +121,14 @@ public class Curso implements Serializable {
 
 		return inscripcion;
 	}
+
+	@Override
+	public String toString() {
+		return "Curso [idCurso=" + idCurso + ", costo=" + costo + ", dias=" + dias + ", inscripcion=" + inscripcion
+				+ ", nomCurso=" + nomCurso + ", nroCuotas=" + nroCuotas + ", profesor=" + profesor + ", inscripcions="
+				+ inscripcions + "]";
+	}
+	
+	
 
 }

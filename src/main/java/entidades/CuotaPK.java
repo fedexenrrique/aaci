@@ -18,7 +18,7 @@ public class CuotaPK implements Serializable {
 	@Column(insertable=false, updatable=false)
 	private int idAlumno;
 
-	private String nroCuota;
+	private int nroCuota;
 
 	public CuotaPK() {
 	}
@@ -34,34 +34,37 @@ public class CuotaPK implements Serializable {
 	public void setIdAlumno(int idAlumno) {
 		this.idAlumno = idAlumno;
 	}
-	public String getNroCuota() {
+	public int getNroCuota() {
 		return this.nroCuota;
 	}
-	public void setNroCuota(String nroCuota) {
+	public void setNroCuota(int nroCuota) {
 		this.nroCuota = nroCuota;
 	}
-
-	public boolean equals(Object other) {
-		if (this == other) {
-			return true;
-		}
-		if (!(other instanceof CuotaPK)) {
-			return false;
-		}
-		CuotaPK castOther = (CuotaPK)other;
-		return 
-			(this.idCurso == castOther.idCurso)
-			&& (this.idAlumno == castOther.idAlumno)
-			&& this.nroCuota.equals(castOther.nroCuota);
-	}
-
+	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int hash = 17;
-		hash = hash * prime + this.idCurso;
-		hash = hash * prime + this.idAlumno;
-		hash = hash * prime + this.nroCuota.hashCode();
-		
-		return hash;
+		int result = 1;
+		result = prime * result + idAlumno;
+		result = prime * result + idCurso;
+		result = prime * result + nroCuota;
+		return result;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CuotaPK other = (CuotaPK) obj;
+		if (idAlumno != other.idAlumno)
+			return false;
+		if (idCurso != other.idCurso)
+			return false;
+		if (nroCuota != other.nroCuota)
+			return false;
+		return true;
+	}
+
 }

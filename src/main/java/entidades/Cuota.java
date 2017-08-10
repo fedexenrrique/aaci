@@ -2,7 +2,6 @@ package entidades;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 
 /**
@@ -19,13 +18,13 @@ public class Cuota implements Serializable {
 
 	private byte[] estado;
 
-	private BigDecimal monto;
+	private double monto;
 
 	//bi-directional many-to-one association to Inscripcion
 	@ManyToOne
 	@JoinColumns({
-		@JoinColumn(name="IdAlumno", referencedColumnName="IdAlumno"),
-		@JoinColumn(name="IdCurso", referencedColumnName="IdCurso")
+		@JoinColumn(name="IdAlumno", referencedColumnName="IdAlumno", insertable = false, updatable = false),
+		@JoinColumn(name="IdCurso", referencedColumnName="IdCurso", insertable = false, updatable = false)
 		})
 	private Inscripcion inscripcion;
 
@@ -48,11 +47,11 @@ public class Cuota implements Serializable {
 		this.estado = estado;
 	}
 
-	public BigDecimal getMonto() {
+	public double getMonto() {
 		return this.monto;
 	}
 
-	public void setMonto(BigDecimal monto) {
+	public void setMonto(double monto) {
 		this.monto = monto;
 	}
 

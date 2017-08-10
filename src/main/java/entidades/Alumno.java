@@ -1,9 +1,16 @@
 package entidades;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
-import java.math.BigInteger;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -16,12 +23,12 @@ public class Alumno implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idAlumno;
 
 	private String apeAlum;
 
-	private BigInteger dni;
+	private Integer dni;
 
 	@Temporal(TemporalType.DATE)
 	private Date nacimiento;
@@ -47,11 +54,11 @@ public class Alumno implements Serializable {
 		this.apeAlum = apeAlum;
 	}
 
-	public BigInteger getDni() {
+	public Integer getDni() {
 		return this.dni;
 	}
 
-	public void setDni(BigInteger dni) {
+	public void setDni(Integer dni) {
 		this.dni = dni;
 	}
 

@@ -26,13 +26,13 @@ public class Inscripcion implements Serializable {
 	private List<Cuota> cuotas;
 
 	//uni-directional many-to-one association to Alumno
-	@ManyToOne
-	@JoinColumn(name="IdAlumno")
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="IdAlumno", insertable = false, updatable = false)
 	private Alumno alumno;
 
 	//bi-directional many-to-one association to Curso
-	@ManyToOne
-	@JoinColumn(name="IdCurso")
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="IdCurso", insertable = false, updatable = false)
 	private Curso curso;
 
 	public Inscripcion() {
